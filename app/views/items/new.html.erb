@@ -1,0 +1,7 @@
+<%= form_for @item do |f| %>
+<%= f.text_field :name %>
+<%= f.text_field :description %>
+<%= f.number_field :price, :step => 0.01 %>
+<%= f.file_field :avatar %>
+<%= f.submit %>
+ <% end %>

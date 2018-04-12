@@ -1,0 +1,16 @@
+<h2>Energy Drinks</h2>
+
+<% @energy_drinks.each do |e_drink| %>
+	<div style= "text-align: center; display: inline-block; margin: 20px">
+		<div class="drinkName"><%= e_drink.name%></div><br>
+		description: <%= e_drink.description %><br>
+		price: $<%= e_drink.price %><br>
+		<%= image_tag e_drink.avatar.url(:medium) %>
+			
+			<%= form_for :items , url: {action: "add_item", controller: "carts"} do |f| %>
+			<%= select_tag(:quantity, options_for_select([[1,1],[2,2],[3,3],[4,4],[5,5],[6,6]], :selected => params[:quantity])) %>
+			<%= hidden_field_tag "itemid", e_drink.id %>
+			<%= f.submit "add to cart " %>	
+		<%end %>
+	</div>
+<% end %>

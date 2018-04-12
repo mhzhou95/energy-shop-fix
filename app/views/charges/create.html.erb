@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shop-Energy</title>
+        <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+    <div><%= flash[:message] if flash[:message] %></div>
+<nav class="navbar">
+        <ul>
+        <li> <%= link_to "Shop", items_path, class: "navList" %></li>
+        <% if !user_signed_in? %>
+            <li><%= link_to "Register", new_user_registration_path, class: "navList" %></li>
+            <li><%= link_to "Login", new_user_session_path, class: "navList"%></li>
+        <% end %>
+             <li><%= link_to "Cart", cart_path(session[:cart_id]), class: "navList" %></li>
+
+        <% if user_signed_in? %>
+        <li><%= link_to "Logout", destroy_user_session_path, method: :delete, class: "navList"%></li>
+        <% end %>
+        </ul>
+</nav>
+
+<h2>Thanks, you paid <strong> $<%=@cart.totalcost%> </strong>!</h2>
+<h3>Heres your receipt, items will be delivered in 5-7 business days. Keep this for your records</h3>
+
+<% @cart.items.each do |t| %>
+<div class="cart_items">
+    <div class="drinkName"><%= t.name %></div><br> price: $<%= t.price %> <br><%= image_tag t.avatar.url(:medium) %><br> quantity: x<%= t.quantity %><br> totalcost: $<%=t.totalprice%> <br>
+</div>
+<%end %>
+<br>
+<div>
+Amount Paid: $<%= @cart.totalcost %>
+ <% @cart.items.delete_all %>
+     <% @cart.update(totalcost: 0) %> <br>
+<%= link_to "Done", items_path, class: "navList" %> 
+</div>  
+</body>
+</html>
+

@@ -1,0 +1,36 @@
+<div id="cart_wrapper">
+    <% @cart.items.each do |t| %>
+        <div class="cart_items">
+            <div class="drinkName"><%= t.name %></div>
+                <br> price: $
+                <%= t.price %>
+                    <br>
+                    <%= image_tag t.avatar.url(:medium) %>
+                        <br> quantity: x
+                        <%= t.quantity %>
+                            <br>totalcost: $
+                            <%= t.totalprice %>
+                                <br>
+                                <br>
+                                <%= form_for :items , url: {action: "delete_item", controller: "carts"} do |f| %>
+                                    <%= hidden_field_tag "itemid", t.id %>
+                                        <%= f.submit "remove from cart " %>
+        </div>
+        <%end %>
+            <%end %>
+                <%if @cart.items.length < 1 %>
+                    <h2>cart is empty</h2>
+                    <% end %>
+                        <% if @cart.items.length >=1 %>
+                            <% if user_signed_in? %>
+                                <div class="checkout">
+                                    Amount: $
+                                    <%= @cart.totalcost %>
+                                        <%= render(:template => 'charges/new') %>
+                                </div>
+                                <%end %>
+                                <% if user_signed_in? == false %>
+                                <h3>please login to checkout</h3>
+                                <% end %> 
+                                        <% end %>
+</div>
