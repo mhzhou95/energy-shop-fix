@@ -5,7 +5,7 @@
                 <br> price: $
                 <%= t.price %>
                     <br>
-                    <%= image_tag t.avatar.url(:medium) %>
+                    <div class="drinkImage" style="background-image: url(#{t.image})"></div>
                         <br> quantity: x
                         <%= t.quantity %>
                             <br>totalcost: $

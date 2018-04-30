@@ -32,12 +32,9 @@ ActiveRecord::Schema.define(version: 20180403200911) do
     t.float "price"
     t.integer "quantity"
     t.float "totalprice"
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "avatar_file_name"
-    t.string "avatar_content_type"
-    t.integer "avatar_file_size"
-    t.datetime "avatar_updated_at"
   end
 
   create_table "sessions", force: :cascade do |t|
